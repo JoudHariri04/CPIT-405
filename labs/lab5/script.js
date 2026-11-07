@@ -443,6 +443,7 @@ const data = [
 ];
 
 
+// get all the html elements
 const searchInput = document.getElementById("search");
 const teamFilter = document.getElementById("team-filter");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
@@ -450,6 +451,8 @@ const playerRows = document.getElementById("player-rows");
 
 
 function renderTable(players) {
+    // clear the old rows first so every time we search/filter the rows dont get added twice
+    playerRows.innerHTML = "";
     players.forEach((player) => {
         const row = document.createElement("tr"); // create each row
         // name
@@ -481,7 +484,7 @@ function renderTable(players) {
 
     });
 }
-playerRows.innerHTML = "";
+
 renderTable(data);
 
 
@@ -504,3 +507,53 @@ teamNames.forEach((teamName) => {
 
 });
 
+
+
+// search and filter :
+
+function filterPlayers() {
+    const searchText = searchInput.value.toLowerCase(); // what the user typed, lowercase so "lebron" and "LeBron" both work
+    const selectedTeam = teamFilter.value; // the team chosen from the drop menu ("all" by default)
+
+    const filteredPlayers = data.filter((player) => {
+        const matchesName = player.name.toLowerCase().includes(searchText); // true if the name has the typed text inside it
+        const matchesTeam = selectedTeam === "all" || player.team === selectedTeam; // true if "all" is chosen or the team is the same
+        return matchesName && matchesTeam; // the player stays only if both are true
+    });
+
+    renderTable(filteredPlayers); // draw the table again with only the filtered players
+}
+// filter() makes a new array and keeps only the players that return true
+// we use one function for both the search and the drop menu so they work together
+// ex: search "j" + team "Boston Celtics" shows only boston players with j in their name
+
+
+searchInput.addEventListener("input", filterPlayers); // "input" runs every time the user types a letter
+teamFilter.addEventListener("change", filterPlayers); // "change" runs when the user picks another option from the drop menu
+
+
+// dark mode :
+
+darkModeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode"); // toggle adds the class if its not there and removes it if it is
+});
+// the .dark-mode class is already in styles.css so we only add/remove it from the body
+
+
+// mouseover (event delegation) :
+
+playerRows.addEventListener("mouseover", (event) => {
+    const row = event.target.closest("tr"); // event.target is the td we are on, closest() goes up to its tr
+    if (row) {
+        row.classList.add("highlight");
+    }
+});
+
+playerRows.addEventListener("mouseout", (event) => {
+    const row = event.target.closest("tr");
+    if (row) {
+        row.classList.remove("highlight");
+    }
+});
+// event delegation = we put ONE listener on the tbody instead of a listener on every row
+// it still works for new rows that renderTable creates after searching because the event bubbles up to the tbody

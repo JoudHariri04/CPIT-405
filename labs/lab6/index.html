@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 6 - Likes and Comments</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Lab 6: Like or Dislike</h1>
+        </header>
+
+        <!-- like / dislike buttons with counters next to them -->
+        <section class="votes">
+            <button id="like-btn">👍 Like</button>
+            <span id="like-count">0</span>
+
+            <button id="dislike-btn">👎 Dislike</button>
+            <span id="dislike-count">0</span>
+        </section>
+
+        <!-- comment input + submit -->
+        <section class="comment-form">
+            <input type="text" id="comment-input" placeholder="Write a comment...">
+            <button id="comment-btn">Submit</button>
+        </section>
+
+        <!-- messages to the user (already voted, reset done, etc) -->
+        <p id="message"></p>
+
+        <!-- comments will be added here in JS -->
+        <section>
+            <h2>Comments</h2>
+            <ul id="comments-list">
+                <!-- Comments will be populated in JS -->
+            </ul>
+        </section>
+
+        <button id="reset-btn">Reset</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

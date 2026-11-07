@@ -68,3 +68,12 @@ th {
 .dark-mode td {
     border-color: #555;
 }
+
+/* row highlight on mouseover (added in js) */
+.highlight {
+    background-color: #ffe8cc;
+}
+
+.dark-mode .highlight {
+    background-color: #555;
+}
