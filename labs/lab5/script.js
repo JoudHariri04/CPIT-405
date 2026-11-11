@@ -528,7 +528,7 @@ function filterPlayers() {
 // ex: search "j" + team "Boston Celtics" shows only boston players with j in their name
 
 
-searchInput.addEventListener("input", filterPlayers); // "input" runs every time the user types a letter
+searchInput.addEventListener("keyup", filterPlayers); // "keyup" runs every time the user types a letter (when the key is released)
 teamFilter.addEventListener("change", filterPlayers); // "change" runs when the user picks another option from the drop menu
 
 

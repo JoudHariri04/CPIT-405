@@ -18,29 +18,30 @@ let comments = []; // array to store the comments
 // cookie functions :
 
 function setCookie(name, value, days) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000); // turn the days into milliseconds
-    document.cookie = name + "=" + encodeURIComponent(value) + "; expires=" + date.toUTCString() + "; path=/";
+    document.cookie = name + "=" + encodeURIComponent(value) + "; max-age=" + days * 24 * 60 * 60 + "; path=/"; // max-age is in seconds so we turn the days into seconds
 }
-// encodeURIComponent because cookies cant have spaces , ; etc. so the comment text could break the cookie
+// encodeURIComponent because the comment text could have ; or = and that would break the cookie
 // ex: setCookie("vote", "like", 7) -> vote=like that stays for 7 days
 
 
 function getCookie(name) {
-    const cookies = document.cookie.split("; "); // document.cookie gives all cookies in ONE string so we split them
-    const cookie = cookies.find((c) => c.startsWith(name + "=")); // find the one that starts with the name we want
-    if (!cookie) {
-        return null; // cookie doesnt exist
+    let myCookies = document.cookie.split(";"); // document.cookie gives all cookies in ONE string separated by ;
+    for (let i = 0; i < myCookies.length; i++) {
+        let pair = myCookies[i].trim().split("="); // trim removes the space before each cookie, then split the name and the value
+        if (pair[0] === name) {
+            return decodeURIComponent(pair[1]); // [0] is the name, [1] is the value
+        }
     }
-    return decodeURIComponent(cookie.substring(name.length + 1)); // take only the value after "name="
+    return null; // cookie doesnt exist
 }
 // ex: document.cookie = "likes=3; vote=like"
-// split -> ["likes=3", "vote=like"]
+// split(";") -> ["likes=3", " vote=like"]
+// " vote=like".trim().split("=") -> ["vote", "like"]
 // getCookie("vote") -> "like"
 
 
 function deleteCookie(name) {
-    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/"; // a date in the past deletes the cookie
+    document.cookie = name + "=; expires=" + new Date(2000, 0, 1).toUTCString() + "; path=/"; // a date in the past deletes the cookie
 }
 
 
@@ -129,10 +130,6 @@ dislikeBtn.addEventListener("click", () => handleVote("dislike"));
 // comments :
 
 commentBtn.addEventListener("click", () => {
-    if (getCookie("commented")) {
-        showMessage("You already commented!");
-        return;
-    }
 
     const text = commentInput.value.trim(); // trim removes the spaces at the start and end
     if (text === "") {
@@ -142,7 +139,6 @@ commentBtn.addEventListener("click", () => {
 
     comments.push(text); // add the comment to the array
     setCookie("comments", JSON.stringify(comments), 7); // JSON.stringify turns the array into a string for the cookie
-    setCookie("commented", "true", 7); // so the user cant comment again
 
     commentInput.value = ""; // clear the input after submitting
     updateUI();
@@ -156,7 +152,6 @@ commentBtn.addEventListener("click", () => {
 resetBtn.addEventListener("click", () => {
     // delete all the cookies
     deleteCookie("vote");
-    deleteCookie("commented");
     deleteCookie("comments");
     deleteCookie("likes");
     deleteCookie("dislikes");

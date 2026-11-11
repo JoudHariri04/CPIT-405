@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Contact - Joud Hariri </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Joud Hariri</h1>
+    <h2>2307656</h2>
+
+    <nav>
+      <ul>
+        <li> <a href="./index.html"> Home / CV </a></li>
+        <li> <a href="./labs.html"> Labs </a></li>
+        <li> <a href="./contact.html" class="active"> Contact </a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main>
+
+    <section>
+      <h2> Contact Me </h2>
+      <p> Email: <a href="mailto:[YOUR_UNI_EMAIL]@stu.kau.edu.sa">[YOUR_UNI_EMAIL]@stu.kau.edu.sa</a> </p>
+      <p> Phone: <a href="tel:+966[YOUR_NUMBER]">+966 [YOUR_NUMBER]</a> </p>
+      <p> GitHub: <a href="https://github.com/[YOUR_GITHUB_USERNAME]" target="_blank">github.com/[YOUR_GITHUB_USERNAME]</a> </p>
+      <p> LinkedIn: <a href="https://www.linkedin.com/in/[YOUR_LINKEDIN]" target="_blank">linkedin.com/in/[YOUR_LINKEDIN]</a> </p>
+      <!-- remove phone or linkedin if you dont want them -->
+    </section>
+
+    <section>
+      <h2> Send a Message </h2>
+
+      <!-- using formsubmit.co to send the messages to my email -->
+      <!-- the first time you send it, formsubmit will email you a link to activate it -->
+      <form action="https://formsubmit.co/[YOUR_EMAIL]" method="POST">
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+
+        <label for="message">Message:</label>
+        <textarea name="message" id="message" rows="5" required></textarea>
+
+        <!-- hidden settings for formsubmit -->
+        <input type="hidden" name="_subject" value="New message from my portfolio">
+        <input type="hidden" name="_captcha" value="false">
+
+        <input type="submit" value="Send" class="btn">
+
+      </form>
+    </section>
+
+  </main>
+
+  <footer> <p>&copy; 2026 Joud Hariri &middot; CPIT-405</p> </footer>
+</body>
+
+</html>
