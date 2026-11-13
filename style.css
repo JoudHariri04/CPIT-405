@@ -1,125 +1,428 @@
 /* main style for all pages */
 
+/* fonts from google fonts: Fraunces for headings, DM Sans for normal text.
+   if the fonts don't load the browser uses Georgia / system-ui instead */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap");
+
+/* ---------- colors (change them here and the whole site changes) ---------- */
+
+:root {
+  --blush: #F6E2E9;
+  --cream: #FEFAF3;
+  --sage-light: #B8CFB3;
+  --sage: #84A282;
+  --forest: #2F3E2E;        /* dark green for text, the palette is too light to read */
+  --forest-soft: #54654F;   /* lighter green for small grey-ish text */
+  --heading-font: "Fraunces", Georgia, serif;
+}
+
+/* ---------- body ---------- */
+
+/* flex column + min-height makes the footer stay at the bottom
+   even when the page is short (like the labs page) */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f1f8;
-  color: #333;
   margin: 0;
-  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "DM Sans", system-ui, Arial, sans-serif;
+  line-height: 1.65;
+  color: var(--forest);
+  background-color: var(--cream);
+  /* small dots in the background */
+  background-image: radial-gradient(var(--sage-light) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+::selection {
+  background-color: var(--sage-light);
 }
 
 /* ---------- header ---------- */
 
+/* grid: name + id on the left, nav on the right */
 header {
-  background-color: #5b3a8c;
-  color: white;
-  text-align: center;
-  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--blush);
+  border-bottom: 2px solid var(--forest);
+  padding: 44px max(24px, calc((100% - 960px) / 2)) 38px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 24px;
+  row-gap: 8px;
+}
+
+/* two green circles for decoration */
+header::before,
+header::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+header::before {
+  width: 240px;
+  height: 240px;
+  background-color: var(--sage-light);
+  right: -70px;
+  top: -110px;
+  opacity: 0.75;
+}
+
+header::after {
+  width: 130px;
+  height: 130px;
+  background-color: var(--sage);
+  left: -45px;
+  bottom: -70px;
+  opacity: 0.5;
+}
+
+/* keep the real content above the circles */
+header > * {
+  position: relative;
+  z-index: 1;
 }
 
 header h1 {
+  grid-column: 1;
   margin: 0;
+  font-family: var(--heading-font);
+  font-size: clamp(2.1rem, 5vw, 3.2rem);
+  line-height: 1.05;
 }
 
+/* the student id, shown like a little label */
 header h2 {
-  margin: 5px 0 15px 0;
-  font-weight: normal;
-  font-size: 18px;
+  grid-column: 1;
+  justify-self: start;
+  margin: 0;
+  padding: 2px 14px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: var(--cream);
+  border: 1.5px solid var(--forest);
+  border-radius: 999px;
+}
+
+header h2::before {
+  content: "Student ID \00B7  ";
 }
 
 /* ---------- nav ---------- */
 
+nav {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
 nav ul {
   list-style: none;
-  padding: 0;
+  padding: 6px;
   margin: 0;
   display: flex;
-  justify-content: center;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 4px;
+  background-color: var(--cream);
+  border: 2px solid var(--forest);
+  border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--sage);
 }
 
 nav a {
-  color: white;
+  display: block;
+  color: var(--forest);
   text-decoration: none;
-  padding: 8px 15px;
-  border-radius: 5px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: background-color 0.2s;
 }
 
 nav a:hover {
-  background-color: #8e6cc4;
+  background-color: var(--sage-light);
 }
 
 /* the page you are on */
 nav a.active {
-  background-color: white;
-  color: #5b3a8c;
+  background-color: var(--forest);
+  color: var(--cream);
 }
 
 /* ---------- main + sections ---------- */
 
 main {
-  width: 80%;
-  max-width: 900px;
-  margin: 20px auto;
+  flex: 1;                      /* takes the empty space so the footer goes down */
+  width: min(92%, 960px);
+  margin: 44px auto 64px;
 }
 
+/* every section is like a card with a green "shadow" behind it */
 section {
-  background-color: white;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  border-left: 5px solid #5b3a8c;
+  background-color: var(--cream);
+  border: 2px solid var(--forest);
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin-bottom: 34px;
+  box-shadow: 6px 6px 0 var(--sage);
 }
 
+/* section titles have a green highlighter line behind them */
 section h2 {
-  color: #5b3a8c;
-  margin-top: 0;
+  display: inline-block;
+  margin: 0 0 16px 0;
+  padding: 0 4px;
+  font-family: var(--heading-font);
+  font-size: 1.75rem;
+  line-height: 1.25;
+  background: linear-gradient(transparent 62%, var(--sage-light) 62%);
 }
 
-/* normal links */
+section h3 {
+  margin: 22px 0 4px 0;
+  font-size: 1.1rem;
+}
+
+/* no big gap when a title comes right after the section title */
+section h2 + h3 {
+  margin-top: 6px;
+}
+
+section p {
+  margin: 8px 0;
+}
+
+/* the first section on the home page (welcome message) is bigger and pink */
+#welcome {
+  background-color: var(--blush);
+}
+
+#welcome p {
+  font-size: 1.15rem;
+  max-width: 62ch;
+}
+
+/* ---------- links ---------- */
+
 a {
-  color: #5b3a8c;
+  color: var(--forest);
+  text-decoration-color: var(--sage);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 a:hover {
-  color: #d16ba5;
+  background-color: var(--sage-light);
+  text-decoration-color: var(--forest);
 }
 
-/* ---------- labs cards ---------- */
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--sage);
+  outline-offset: 3px;
+}
 
-.cards {
+/* "back to projects" link on the project pages */
+.back {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ---------- lists ---------- */
+
+section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* a small green circle instead of the normal bullet */
+section li {
+  position: relative;
+  padding-left: 28px;
+  margin: 12px 0;
+}
+
+section li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.55em;
+  width: 11px;
+  height: 11px;
+  box-sizing: border-box;
+  background-color: var(--sage);
+  border: 2px solid var(--forest);
+  border-radius: 50%;
+}
+
+/* skills are little pills instead of a list */
+#skills ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 10px;
+}
+
+#skills li {
+  margin: 0;
+  padding: 5px 16px;
+  font-weight: 500;
+  background-color: var(--blush);
+  border: 2px solid var(--forest);
+  border-radius: 999px;
+  transition: transform 0.2s;
+}
+
+#skills li::before {
+  display: none;
+}
+
+/* three colors that repeat */
+#skills li:nth-child(3n + 2) {
+  background-color: var(--sage-light);
+}
+
+#skills li:nth-child(3n) {
+  background-color: var(--cream);
+}
+
+#skills li:hover {
+  transform: translateY(-3px) rotate(-2deg);
+}
+
+/* ---------- cards (labs + projects) ---------- */
+
+/* grid: as many cards per row as fit, so no empty space on the right */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
 }
 
 .card {
-  background-color: #f4f1f8;
-  padding: 15px;
-  border-radius: 8px;
-  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: var(--blush);
+  border: 2px solid var(--forest);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 4px 4px 0 var(--forest);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* cards take turns being pink, green and cream */
+.card:nth-child(3n + 2) {
+  background-color: var(--sage-light);
+}
+
+.card:nth-child(3n) {
+  background-color: var(--cream);
+}
+
+/* the card moves up a bit when you hover on it */
+.card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0 var(--forest);
 }
 
 .card h3 {
-  margin-top: 0;
+  margin: 0 0 8px 0;
+  font-family: var(--heading-font);
+  font-size: 1.25rem;
+  line-height: 1.25;
 }
 
-/* button style (used for lab links and the send button) */
+.card p {
+  margin: 0 0 4px 0;
+}
+
+/* whatever comes right before the button gets some space under it */
+.card > :nth-last-child(2) {
+  margin-bottom: 16px;
+}
+
+/* margin-top: auto pushes the button to the bottom of the card */
+.card .btn {
+  margin-top: auto;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 16px 0;
+}
+
+.tags li {
+  margin: 0;
+  padding: 1px 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background-color: var(--cream);
+  border: 1.5px solid var(--forest);
+  border-radius: 999px;
+}
+
+/* tags are not bullet points */
+.tags li::before {
+  display: none;
+}
+
+/* if a group has exactly 4 cards (like Featured projects) show them 2 x 2
+   so there is no empty space. :has() asks "does it contain...?" */
+.cards:has(> .card:nth-child(4):last-child) {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* small grey-ish text under a title */
+.meta {
+  margin: 0 0 12px 0;
+  font-size: 0.9rem;
+  color: var(--forest-soft);
+}
+
+.card .meta {
+  color: var(--forest);
+}
+
+/* ---------- buttons ---------- */
+
+/* used for the lab links and the send button */
 .btn {
   display: inline-block;
-  background-color: #5b3a8c;
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
+  background-color: var(--forest);
+  color: var(--cream);
+  padding: 9px 20px;
+  border: 2px solid var(--forest);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
   text-decoration: none;
   cursor: pointer;
-  font-size: 15px;
+  box-shadow: 3px 3px 0 var(--sage);
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
 }
 
 .btn:hover {
-  background-color: #d16ba5;
-  color: white;
+  background-color: var(--sage-light);
+  color: var(--forest);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--forest);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 /* ---------- contact form ---------- */
@@ -127,48 +430,117 @@ a:hover {
 form {
   display: flex;
   flex-direction: column;
-  max-width: 400px;
+  max-width: 460px;
 }
 
 form label {
-  margin-top: 10px;
+  margin-top: 16px;
+  font-weight: 700;
 }
 
 form input,
 form textarea {
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-family: Arial, sans-serif;
+  margin-top: 6px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--forest);
+  background-color: #fff;
+  border: 2px solid var(--forest);
+  border-radius: 12px;
 }
 
-form .btn {
-  margin-top: 15px;
-  width: 100px;
+/* the send button (this comes after "form input" so it wins) */
+form input.btn {
+  align-self: flex-start;
+  margin-top: 24px;
+  padding: 9px 28px;
+  color: var(--cream);
+  background-color: var(--forest);
+  border-radius: 999px;
+}
+
+form input.btn:hover {
+  color: var(--forest);
+  background-color: var(--sage-light);
+}
+
+/* ---------- screenshots + video ---------- */
+
+.shot {
+  display: block;
+  max-width: 100%;
+  margin: 12px 0 26px 0;
+  border: 2px solid var(--forest);
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 var(--sage-light);
+}
+
+video.shot {
+  width: 100%;
 }
 
 /* ---------- footer ---------- */
 
 footer {
-  background-color: #5b3a8c;
-  color: white;
+  position: relative;
+  margin-top: auto;
+  padding: 24px 16px;
   text-align: center;
-  padding: 10px;
+  font-size: 0.95rem;
+  color: var(--cream);
+  background-color: var(--forest);
+}
+
+footer p {
+  margin: 0;
+}
+
+/* wavy edge on top of the footer: a row of small half circles */
+footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -13px;
+  height: 14px;
+  background-image: radial-gradient(circle at 10px 14px, var(--forest) 10px, transparent 10.5px);
+  background-size: 20px 14px;
+  background-repeat: repeat-x;
 }
 
 /* ---------- small screens (phone) ---------- */
 
-@media (max-width: 600px) {
-  main {
-    width: 95%;
+@media (max-width: 720px) {
+  header {
+    grid-template-columns: 1fr;
+    padding: 32px 20px 30px;
+  }
+
+  nav {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 14px;
   }
 
   nav ul {
-    flex-direction: column;
+    justify-content: center;
+    border-radius: 26px;
   }
 
-  .card {
-    width: 100%;
+  section {
+    padding: 22px 20px;
+  }
+
+  .cards,
+  .cards:has(> .card:nth-child(4):last-child) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* people who don't like animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
   }
 }

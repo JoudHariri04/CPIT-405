@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Unix Command Runner - Joud Hariri </title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Joud Hariri</h1>
+    <h2>2307656</h2>
+
+    <nav>
+      <ul>
+        <li> <a href="../index.html"> Home / CV </a></li>
+        <li> <a href="../labs.html"> Labs </a></li>
+        <li> <a href="../projects.html" class="active"> Projects </a></li>
+        <li> <a href="../contact.html"> Contact </a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main>
+
+    <a href="../projects.html" class="back">&larr; Back to Projects</a>
+
+    <section>
+      <h2> Unix Command Runner </h2>
+      <p class="meta"> CPIT-260 Operating Systems &middot; Group project (3 students) &middot; Java </p>
+      <ul class="tags">
+        <li>Java</li>
+        <li>JavaFX</li>
+        <li>ProcessBuilder</li>
+        <li>macOS / zsh</li>
+      </ul>
+      <p> A JavaFX desktop app that lets a user run common shell commands on macOS without typing in a terminal. Pick a
+        command from a drop-down menu, type any parameters, press Run, and the output appears in a text area. It
+        was meant to make the power of the command line easier for less-experienced users. </p>
+    </section>
+
+    <section>
+      <h2> How it works </h2>
+      <ul>
+        <li> <strong>Interface:</strong> a JavaFX window with a drop-down of about 30 commands (<code>ls</code>,
+          <code>mkdir</code>, <code>cp</code>, <code>mv</code>, <code>grep</code>, <code>chmod</code>,
+          <code>zip</code> and more), a parameter field, a Run button and a read-only output area. Two event handlers
+          drive it: one for choosing a command and one for pressing Run. </li>
+        <li> <strong>Running commands:</strong> each command is started with <code>ProcessBuilder</code> in a
+          <code>zsh</code> subprocess. The program reads both the normal output and the error output, and checks the
+          exit code to decide what to show. </li>
+        <li> <strong>Working directory:</strong> every command runs as a separate process, so <code>cd</code> cannot
+          work normally. The app handles it itself by keeping track of the current and previous directories (including
+          <code>cd ~</code> and <code>cd -</code>) and starting each process in the current one. </li>
+        <li> <strong>Friendly errors:</strong> commands that need root access, need an interactive terminal, or
+          are missing a required parameter show a clear explanation instead of freezing or crashing. </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2> Screenshots </h2>
+      <p> The app on launch. </p>
+      <img src="./img/os-gui.png" alt="The Command Runner window on launch" class="shot">
+
+      <p> Changing directory. The app tracks the current folder itself. </p>
+      <img src="./img/os-cd.png" alt="The cd command changing to the documents directory" class="shot">
+
+      <p> Running a command with a parameter: <code>cat</code> on a text file. </p>
+      <img src="./img/os-cat.png" alt="The cat command printing the contents of a text file" class="shot">
+
+      <p> <code>less</code> needs an interactive terminal, so the app explains why and suggests <code>head</code> or
+        <code>cat</code> instead. </p>
+      <img src="./img/os-less.png" alt="Message explaining that less cannot run in the GUI" class="shot">
+
+      <p> Commands that need root access, like <code>addUser</code>, are blocked with an explanation. </p>
+      <img src="./img/os-root.png" alt="Message explaining that this command needs root access" class="shot">
+    </section>
+
+  </main>
+
+  <footer> <p>&copy; 2026 Joud Hariri &middot; CPIT-405</p> </footer>
+</body>
+
+</html>

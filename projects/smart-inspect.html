@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Smart Inspect - Joud Hariri </title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Joud Hariri</h1>
+    <h2>2307656</h2>
+
+    <nav>
+      <ul>
+        <li> <a href="../index.html"> Home / CV </a></li>
+        <li> <a href="../labs.html"> Labs </a></li>
+        <li> <a href="../projects.html" class="active"> Projects </a></li>
+        <li> <a href="../contact.html"> Contact </a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main>
+
+    <a href="../projects.html" class="back">&larr; Back to Projects</a>
+
+    <section>
+      <h2> Smart Inspect: Municipal Inspection System </h2>
+      <p class="meta"> CPIT-251 Software Engineering &amp; CPIT-305 Advanced Programming &middot; Team leader &middot; Java </p>
+      <ul class="tags">
+        <li>Java</li>
+        <li>Swing</li>
+        <li>Sockets</li>
+        <li>Multithreading</li>
+        <li>MySQL / JDBC</li>
+        <li>File I/O</li>
+        <li>JUnit</li>
+      </ul>
+      <p> Smart Inspect helps Jeddah Municipality inspectors check seaside establishments in the field. An inspector
+        logs in, looks up an establishment by its license number, records an inspection with a violation, and can
+        review that establishment's full inspection history. </p>
+      <p> This one project was developed for two courses, and I led the team in both. In CPIT-251 (Software
+        Engineering) it was the Seashore Violation Tracking App, built with XP agile practices. In CPIT-305 (Advanced
+        Programming) it grew into a full client-server system with a GUI, threads, networking and a database. </p>
+    </section>
+
+    <section>
+      <h2> What it does </h2>
+      <ul>
+        <li> <strong>Login:</strong> inspectors sign in with name, ID and password, checked against the database. </li>
+        <li> <strong>Search:</strong> look up an establishment by license number and see its details. </li>
+        <li> <strong>Inspect:</strong> write the result of an inspection and choose the violation from a drop-down list. </li>
+        <li> <strong>History:</strong> view every past inspection for an establishment: date, inspector, notes and
+          violation. </li>
+        <li> <strong>Statistics:</strong> total inspections, the most common violation and this month's inspection count. </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2> How it works </h2>
+      <ul>
+        <li> <strong>Client and server:</strong> the Swing client connects to a server over a socket. They talk
+          through a small text protocol with commands such as <code>LOGIN</code>, <code>SEARCH</code>,
+          <code>INSPECT</code> and <code>HISTORY</code>. </li>
+        <li> <strong>Threads:</strong> the server gives every connected inspector their own thread, so several
+          inspectors can work at the same time. A separate background thread checks every 24 hours for
+          establishments whose license has expired. </li>
+        <li> <strong>Database:</strong> inspectors, establishments, violations and inspection history live in MySQL,
+          accessed through JDBC with <code>PreparedStatement</code>. </li>
+        <li> <strong>File I/O:</strong> the server writes timestamped entries to a log file for startup, logins and
+          expired licenses. </li>
+        <li> <strong>Structure:</strong> the logic classes (<code>Establishment</code>, <code>Inspector</code>,
+          <code>License</code>, <code>Violation</code> and others) are kept separate from the GUI frames (login,
+          main menu, search, inspection form, history and statistics). </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer> <p>&copy; 2026 Joud Hariri &middot; CPIT-405</p> </footer>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> 3D Rendering and OpenGL - Joud Hariri </title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Joud Hariri</h1>
+    <h2>2307656</h2>
+
+    <nav>
+      <ul>
+        <li> <a href="../index.html"> Home / CV </a></li>
+        <li> <a href="../labs.html"> Labs </a></li>
+        <li> <a href="../projects.html" class="active"> Projects </a></li>
+        <li> <a href="../contact.html"> Contact </a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main>
+
+    <a href="../projects.html" class="back">&larr; Back to Projects</a>
+
+    <section>
+      <h2> 3D Rendering &amp; OpenGL </h2>
+      <p class="meta"> CPIT-285 &middot; Blender &amp; Python </p>
+      <ul class="tags">
+        <li>Blender</li>
+        <li>3D Rendering</li>
+        <li>Python</li>
+        <li>PyOpenGL</li>
+        <li>GLUT</li>
+      </ul>
+      <p> Two kinds of graphics work from CPIT-285: 3D scenes modeled and rendered in Blender, and a 2D scene
+        written entirely in code with OpenGL. </p>
+    </section>
+
+    <section>
+      <h2> Donut scene (Blender ) </h2>
+      <p> A desk scene with a stack of police reports, a coffee cup, a pen holder and a donut on a plate, rendered at
+        1920&times;1080. </p>
+      <img src="./img/donut.jpg" alt="3D rendered desk with police reports, coffee and a donut" class="shot">
+    </section>
+
+    <section>
+      <h2> 3D animation (Blender) </h2>
+      <p> A 30-second rendered animation of a carved wooden rocking horse on a dresser. </p>
+      <video class="shot" controls preload="metadata" poster="./img/render-poster.jpg">
+        <source src="./video/render.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </section>
+
+    <section>
+      <h2> Harbor scene (Python + OpenGL) </h2>
+      <p> A 2D city-by-the-sea scene drawn from coordinates with PyOpenGL and GLUT: buildings with windows, water and a
+        sailboat. The scene is interactive: </p>
+      <ul>
+        <li> Press <strong>L</strong> or <strong>R</strong> to move the boat left or right. </li>
+        <li> Right-click to open a menu that changes the sky color (black, yellow or the original) or exits. </li>
+      </ul>
+      <p> Everything is built from basic shapes placed with an orthographic 2D coordinate system. </p>
+    </section>
+
+  </main>
+
+  <footer> <p>&copy; 2026 Joud Hariri &middot; CPIT-405</p> </footer>
+</body>
+
+</html>

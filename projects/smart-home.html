@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Smart Home Control System - Joud Hariri </title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Joud Hariri</h1>
+    <h2>2307656</h2>
+
+    <nav>
+      <ul>
+        <li> <a href="../index.html"> Home / CV </a></li>
+        <li> <a href="../labs.html"> Labs </a></li>
+        <li> <a href="../projects.html" class="active"> Projects </a></li>
+        <li> <a href="../contact.html"> Contact </a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main>
+
+    <a href="../projects.html" class="back">&larr; Back to Projects</a>
+
+    <section>
+      <h2> Smart Home Control System </h2>
+      <p class="meta"> CPIT-252 Software Design Patterns &middot; Spring 2026 &middot; Group project (2 students) </p>
+      <ul class="tags">
+        <li>Java 17</li>
+        <li>Maven</li>
+        <li>Singleton</li>
+        <li>Factory Method</li>
+        <li>Proxy</li>
+        <li>Command</li>
+      </ul>
+      <p> A Java console application that manages a home's smart devices through one central hub. It was built to
+        show how four Gang of Four design patterns solve real structural problems in a single, working system. </p>
+    </section>
+
+    <section>
+      <h2> The problems and the patterns </h2>
+      <ul>
+        <li> <strong>No structure:</strong> devices were created and referenced everywhere. <strong>Singleton</strong>
+          (<code>HomeHub</code>) gives one central hub, and <strong>Factory Method</strong>
+          (<code>DeviceFactory</code>) is the only place devices are created. </li>
+        <li> <strong>No safety:</strong> anyone could view the camera. <strong>Proxy</strong>
+          (<code>CameraProxy</code>) checks the user's role and denies guests. </li>
+        <li> <strong>No undo:</strong> actions were permanent. <strong>Command</strong>
+          (<code>TurnOnLightCommand</code>, <code>TurnOffLightCommand</code> and
+          <code>HomeAutomationRemote</code>) keeps a history stack so any light action can be undone. </li>
+      </ul>
+      <p> The app runs as a numbered console menu: turn a light on or off, undo the last action, view all device
+        statuses, or test camera access as GUEST, ADMIN or OWNER. It uses only the Java standard library. </p>
+    </section>
+
+    <section>
+      <h2> Screenshots </h2>
+      <p> Application startup. The two hub references point to the same object, and the factory creates all four
+        devices. </p>
+      <img src="./img/smarthome-startup.png" alt="Console output showing the app starting up" class="shot">
+
+      <p> Undo. The last light command is popped from the history stack and reversed. </p>
+      <img src="./img/smarthome-undo.png" alt="Console output showing the undo command" class="shot">
+
+      <p> Camera access denied for a GUEST. </p>
+      <img src="./img/smarthome-denied.png" alt="Console output showing camera access denied for a guest" class="shot">
+
+      <p> Camera access granted for an ADMIN. </p>
+      <img src="./img/smarthome-granted.png" alt="Console output showing camera access granted for an admin" class="shot">
+    </section>
+
+    <section>
+      <h2> Challenges </h2>
+      <ul>
+        <li> <code>SmartDevice</code> is an interface, so it cannot be instantiated directly. The factory solves this by
+          always returning a concrete subclass (<code>Light</code>, <code>Thermostat</code> or <code>Camera</code>). </li>
+        <li> The Command classes only work with lights, because thermostats and cameras have more complex state. The
+          app checks the device type before using the pattern. </li>
+        <li> The real camera service is created lazily, only after the proxy has granted access, so the role check can
+          never be bypassed. </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer> <p>&copy; 2026 Joud Hariri &middot; CPIT-405</p> </footer>
+</body>
+
+</html>
